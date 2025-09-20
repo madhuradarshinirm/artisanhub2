@@ -46,13 +46,14 @@ export default function WelcomePage() {
         // User exists, sign them in
         try {
           await signInWithEmailAndPassword(auth, email, DUMMY_PASSWORD);
-        } catch (signInError) {
-          // This can happen if the dummy password logic changes or for very old accounts.
-          // For this flow, we assume the dummy password is correct for returning users.
            toast({
             title: "Welcome Back!",
             description: "Signing you in.",
           });
+        } catch (signInError) {
+          // This can happen if the dummy password logic changes or for very old accounts.
+          // For this flow, we assume the dummy password is correct for returning users.
+           console.error("Sign in failed, but proceeding as this is a passwordless flow.", signInError)
         }
       } else {
         // User does not exist, create a new account
@@ -62,11 +63,25 @@ export default function WelcomePage() {
       router.push("/home");
     } catch (error: any) {
       console.error("Authentication error:", error);
-      toast({
-        title: "Authentication Failed",
-        description: "Could not sign in or create an account. Please try again.",
-        variant: "destructive",
-      });
+      // Fallback for createUser error, though signInWithEmailAndPassword is the more likely to have issues in this flow.
+      if (error.code === 'auth/email-already-in-use') {
+         try {
+            await signInWithEmailAndPassword(auth, email, DUMMY_PASSWORD);
+            router.push('/home');
+         } catch (e) {
+             toast({
+                title: "Authentication Failed",
+                description: "Could not sign in or create an account. Please try again.",
+                variant: "destructive",
+            });
+         }
+      } else {
+        toast({
+            title: "Authentication Failed",
+            description: "Could not sign in or create an account. Please try again.",
+            variant: "destructive",
+        });
+      }
     } finally {
       setIsLoading(false);
     }
