@@ -3,16 +3,25 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logo } from "@/components/logo";
 import { Skeleton } from "@/components/ui/skeleton";
-import { LogOut, PlusCircle, ShoppingBag, BarChart2, Bot } from "lucide-react";
+import { LogOut, PlusCircle, ShoppingBag, BarChart2, Bot, Compass, User as UserIcon, Store, Bell } from "lucide-react";
 import Image from "next/image";
 import { placeholderImages } from "@/lib/placeholder-images";
-import { Badge } from "@/components/ui/badge";
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -56,20 +65,68 @@ export default function DashboardPage() {
   }
 
   const userProducts = placeholderImages.slice(0, 4); // Example products
+  const getInitials = (email: string | null | undefined) => {
+    if (!email) return "U";
+    return email.substring(0, 2).toUpperCase();
+  };
+
 
   return (
     <div className="min-h-screen bg-muted/40">
-      <header className="flex items-center justify-between p-4 border-b bg-background">
-        <div className="flex items-center gap-2">
-          <Logo />
-          <h1 className="text-xl font-bold">Artisan Dashboard</h1>
-        </div>
-        <div className="flex items-center gap-4">
-            <p className="text-sm text-muted-foreground hidden sm:block">{user?.email}</p>
-            <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Logout">
-                <LogOut className="w-5 h-5" />
-            </Button>
-        </div>
+      <header className="flex items-center h-16 px-4 border-b bg-background md:px-6">
+        <nav className="flex items-center gap-6 text-lg font-medium md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 w-full">
+          <Link href="#" className="flex items-center gap-2 text-lg font-semibold md:text-base">
+            <Logo />
+            <span className="sr-only">Artisan Hub</span>
+          </Link>
+          <Link href="#" className="text-foreground transition-colors hover:text-foreground">
+            Dashboard
+          </Link>
+           <div className="flex-1">
+             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                  <Compass size={20} />
+                  Explore
+                </Link>
+                <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                    <UserIcon size={20}/>
+                    Profile
+                </Link>
+                <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                    <Store size={20}/>
+                    My Store
+                </Link>
+                <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                    <Bell size={20}/>
+                    Notifications
+                </Link>
+            </nav>
+           </div>
+
+          <div className="flex items-center gap-4 md:ml-auto">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="secondary" size="icon" className="rounded-full">
+                   <Avatar>
+                        <AvatarImage src={user?.photoURL || ''} alt={user?.displayName || ''} />
+                        <AvatarFallback>{getInitials(user?.email)}</AvatarFallback>
+                    </Avatar>
+                  <span className="sr-only">Toggle user menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>{user?.email}</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 cursor-pointer">
+                    <LogOut className="w-4 h-4" />
+                    <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </nav>
       </header>
       <main className="p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
