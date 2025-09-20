@@ -19,7 +19,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logo } from "@/components/logo";
 import { Skeleton } from "@/components/ui/skeleton";
-import { LogOut, PlusCircle, ShoppingBag, BarChart2, Bot, Compass, User as UserIcon, Store, Bell } from "lucide-react";
+import { LogOut, PlusCircle, ShoppingBag, BarChart2, Bot, Compass, User as UserIcon, Store } from "lucide-react";
 import Image from "next/image";
 import { placeholderImages } from "@/lib/placeholder-images";
 
@@ -96,14 +96,14 @@ export default function DashboardPage() {
                     <Store size={20}/>
                     My Store
                 </Link>
-                <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                    <Bell size={20}/>
-                    Notifications
-                </Link>
             </nav>
            </div>
 
           <div className="flex items-center gap-4 md:ml-auto">
+             <Button variant="outline" size="sm">
+                <Bot className="mr-2 h-4 w-4" />
+                AI Tools
+              </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="secondary" size="icon" className="rounded-full">
@@ -161,14 +161,14 @@ export default function DashboardPage() {
                     <p className="text-xs text-muted-foreground">+201 since last hour</p>
                 </CardContent>
             </Card>
-            <Card className="bg-primary/10 border-primary/40">
+            <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">AI Tools</CardTitle>
-                    <Bot className="h-6 w-6 text-primary" />
+                    <CardTitle className="text-sm font-medium">Products</CardTitle>
+                    <Store className="h-6 w-6 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                     <div className="text-2xl font-bold">Generate</div>
-                    <p className="text-xs text-muted-foreground">Descriptions, Photos & More</p>
+                     <div className="text-2xl font-bold">4</div>
+                    <p className="text-xs text-muted-foreground">in your store</p>
                 </CardContent>
             </Card>
           </div>
