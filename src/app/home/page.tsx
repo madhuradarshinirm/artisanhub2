@@ -99,7 +99,7 @@ export default function HomePage() {
                   <Compass size={20} />
                   Explore
                 </Link>
-                <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                <Link href="/my-store" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
                     <Store size={20}/>
                     My Store
                 </Link>
@@ -107,7 +107,7 @@ export default function HomePage() {
                     <UserIcon size={20}/>
                     Profile
                 </Link>
-                 <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                 <Link href="/ai-tools" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
                     <Bot size={20}/>
                     AI Tools
                 </Link>
