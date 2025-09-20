@@ -1,9 +1,10 @@
+
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,34 +20,26 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
 
-export default function SignupPage() {
+export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      toast({
-        title: "Passwords do not match",
-        variant: "destructive",
-      });
-      return;
-    }
     setIsLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       toast({
-        title: "Account Created",
-        description: "You have been successfully signed up.",
+        title: "Login Successful",
+        description: "Welcome back!",
       });
       router.push("/dashboard");
     } catch (error: any) {
       toast({
-        title: "Signup Failed",
+        title: "Login Failed",
         description: error.message,
         variant: "destructive",
       });
@@ -60,13 +53,13 @@ export default function SignupPage() {
       <Card className="w-full max-w-sm">
         <CardHeader className="items-center text-center">
           <Logo />
-          <CardTitle className="text-2xl font-bold">Create an Account</CardTitle>
+          <CardTitle className="text-2xl font-bold">Artisan Hub Login</CardTitle>
           <CardDescription>
-            Join Artisan Hub to showcase your products.
+            Enter your credentials to access your dashboard.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSignup} className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -89,27 +82,16 @@ export default function SignupPage() {
                 required
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="confirm-password">Confirm Password</Label>
-              <Input
-                id="confirm-password"
-                type="password"
-                placeholder="Confirm your password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Creating account..." : "Sign Up"}
+              {isLoading ? "Logging in..." : "Login"}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex justify-center text-sm">
           <p>
-            Already have an account?{" "}
-            <Link href="/login" className="text-primary hover:underline">
-              Login
+            Don't have an account?{" "}
+            <Link href="/signup" className="text-primary hover:underline">
+              Sign up
             </Link>
           </p>
         </CardFooter>

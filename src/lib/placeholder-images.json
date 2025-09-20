@@ -1,0 +1,101 @@
+
+{
+  "images": [
+    {
+      "id": 1,
+      "name": "Ceramic Mug",
+      "url": "https://picsum.photos/seed/1/400/400",
+      "category": "Pottery",
+      "price": 25.00,
+      "aiHint": "ceramic mug"
+    },
+    {
+      "id": 2,
+      "name": "Leather Wallet",
+      "url": "https://picsum.photos/seed/2/400/400",
+      "category": "Leather Goods",
+      "price": 45.00,
+      "aiHint": "leather wallet"
+    },
+    {
+      "id": 3,
+      "name": "Handwoven Scarf",
+      "url": "https://picsum.photos/seed/3/400/400",
+      "category": "Textiles",
+      "price": 60.00,
+      "aiHint": "woven scarf"
+    },
+    {
+      "id": 4,
+      "name": "Silver Necklace",
+      "url": "https://picsum.photos/seed/4/400/400",
+      "category": "Jewelry",
+      "price": 120.00,
+      "aiHint": "silver necklace"
+    },
+    {
+      "id": 5,
+      "name": "Wooden Bowl",
+      "url": "https://picsum.photos/seed/5/400/400",
+      "category": "Woodworking",
+      "price": 75.00,
+      "aiHint": "wooden bowl"
+    },
+    {
+      "id": 6,
+      "name": "Glass Vase",
+      "url": "https://picsum.photos/seed/6/400/400",
+      "category": "Glassblowing",
+      "price": 90.00,
+      "aiHint": "glass vase"
+    },
+    {
+      "id": 7,
+      "name": "Soy Candle",
+      "url": "https://picsum.photos/seed/7/400/400",
+      "category": "Candles",
+      "price": 20.00,
+      "aiHint": "scented candle"
+    },
+    {
+      "id": 8,
+      "name": "Canvas Painting",
+      "url": "https://picsum.photos/seed/8/400/400",
+      "category": "Painting",
+      "price": 250.00,
+      "aiHint": "abstract painting"
+    },
+    {
+        "id": 9,
+        "name": "Embroidered Hoop Art",
+        "url": "https://picsum.photos/seed/9/400/400",
+        "category": "Textiles",
+        "price": 35.00,
+        "aiHint": "embroidery art"
+    },
+    {
+        "id": 10,
+        "name": "Handmade Soap Bar",
+        "url": "https://picsum.photos/seed/10/400/400",
+        "category": "Apothecary",
+        "price": 8.00,
+        "aiHint": "handmade soap"
+    },
+    {
+        "id": 11,
+        "name": "Beaded Bracelet",
+        "url": "https://picsum.photos/seed/11/400/400",
+        "category": "Jewelry",
+        "price": 30.00,
+        "aiHint": "beaded bracelet"
+    },
+    {
+        "id": 12,
+        "name": "Carved Wooden Spoon",
+        "url": "https://picsum.photos/seed/12/400/400",
+        "category": "Woodworking",
+        "price": 22.00,
+        "aiHint": "carved spoon"
+    }
+  ]
+}
