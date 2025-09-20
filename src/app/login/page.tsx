@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,36 +15,21 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
   const { toast } = useToast();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Using a dummy password for Firebase auth since the user wants a passwordless UI
-    const dummyPassword = "default-password-for-all-users"; 
     try {
-      await signInWithEmailAndPassword(auth, email, dummyPassword);
+      await signInWithEmailAndPassword(auth, email, password);
       router.push("/dashboard");
     } catch (error: any) {
-      // If user does not exist, create a new account
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-        try {
-            await createUserWithEmailAndPassword(auth, email, dummyPassword);
-            router.push("/dashboard");
-        } catch (signupError: any) {
-            toast({
-                title: "Authentication Failed",
-                description: "Could not sign in or create an account. Please try again.",
-                variant: "destructive",
-            });
-        }
-      } else {
-         toast({
-            title: "Login Failed",
-            description: "An unexpected error occurred. Please try again.",
-            variant: "destructive",
-        });
-      }
+      toast({
+        title: "Login Failed",
+        description: "Please check your email and password and try again.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -68,6 +53,17 @@ export default function LoginPage() {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
