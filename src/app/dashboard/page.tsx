@@ -75,35 +75,32 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-muted/40">
       <header className="flex items-center h-16 px-4 border-b bg-background md:px-6">
         <nav className="flex items-center gap-6 text-lg font-medium md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 w-full">
-          <Link href="#" className="flex items-center gap-2 text-lg font-semibold md:text-base">
+          <Link href="/dashboard" className="flex items-center gap-2 text-lg font-semibold md:text-base">
             <Logo />
             <span className="sr-only">Artisan Hub</span>
           </Link>
-          <Link href="#" className="text-foreground transition-colors hover:text-foreground">
-            Dashboard
-          </Link>
-           <div className="flex-1">
+          <div className="flex-1">
              <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
                 <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
                   <Compass size={20} />
                   Explore
                 </Link>
                 <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                    <Store size={20}/>
+                    My Store
+                </Link>
+                <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
                     <UserIcon size={20}/>
                     Profile
                 </Link>
-                <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                    <Store size={20}/>
-                    My Store
+                 <Link href="#" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                    <Bot size={20}/>
+                    AI Tools
                 </Link>
             </nav>
            </div>
 
           <div className="flex items-center gap-4 md:ml-auto">
-             <Button variant="outline" size="sm">
-                <Bot className="mr-2 h-4 w-4" />
-                AI Tools
-              </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="secondary" size="icon" className="rounded-full">

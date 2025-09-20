@@ -27,7 +27,7 @@ export default function LoginPage() {
     } catch (error: any) {
       toast({
         title: "Login Failed",
-        description: "Since we've removed passwords for new users, this form is for users with existing passwords. Please contact support if you need assistance.",
+        description: "Invalid email or password. Please try again.",
         variant: "destructive",
       });
     }
@@ -37,9 +37,9 @@ export default function LoginPage() {
     <main className="flex items-center justify-center min-h-screen bg-muted/40 p-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <div className="flex justify-center items-center mb-4">
+          <Link href="/" className="flex justify-center items-center mb-4">
             <Logo />
-          </div>
+          </Link>
           <CardTitle>Welcome Back!</CardTitle>
           <CardDescription>Log in to your Artisan Hub account.</CardDescription>
         </CardHeader>
@@ -73,7 +73,7 @@ export default function LoginPage() {
           </form>
            <div className="mt-4 text-center text-sm">
             Don't have an account?{" "}
-            <Link href="/" className="underline">
+            <Link href="/signup" className="underline">
               Sign up
             </Link>
           </div>
