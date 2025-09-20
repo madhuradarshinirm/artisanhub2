@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'TalkBridge',
-  description: 'AI-powered language translation',
+  title: 'Artisan Hub',
+  description: 'A platform for artisans to showcase and sell their products.',
 };
 
 export default function RootLayout({
