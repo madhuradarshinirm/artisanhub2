@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
-import { ArrowLeft, Wand2, Copy, Bot, ImageIcon, Loader2 } from "lucide-react";
+import { ArrowLeft, Wand2, Copy, Bot, ImageIcon, Loader2, Download } from "lucide-react";
 import { generateStory } from "@/ai/flows/generate-story";
 import { customizeImage } from "@/ai/flows/customize-image";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -86,6 +86,23 @@ export default function AIToolsPage() {
       });
   }
 
+  const handleDownloadStory = () => {
+    if (!generatedStory) return;
+    const blob = new Blob([generatedStory], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'product-story.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast({
+        title: "Story Downloaded",
+        description: "The product story has been saved as a text file.",
+    });
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -142,6 +159,20 @@ export default function AIToolsPage() {
     }
   };
 
+  const handleDownloadImage = () => {
+    if (!generatedImage) return;
+    const link = document.createElement('a');
+    link.href = generatedImage;
+    link.download = 'customized-product-image.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast({
+        title: "Image Downloaded",
+        description: "The customized image has been saved to your device.",
+    });
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -189,9 +220,14 @@ export default function AIToolsPage() {
                     )}
                     {generatedStory && (
                          <div className="p-4 border rounded-md bg-stone-50 relative">
-                             <Button variant="ghost" size="icon" className="absolute top-2 right-2 h-7 w-7" onClick={handleCopyToClipboard}>
-                                 <Copy className="h-4 w-4"/>
-                             </Button>
+                             <div className="absolute top-2 right-2 flex gap-1">
+                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handleCopyToClipboard}>
+                                    <Copy className="h-4 w-4"/>
+                                </Button>
+                                 <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handleDownloadStory}>
+                                    <Download className="h-4 w-4"/>
+                                </Button>
+                             </div>
                             <p className="text-sm text-stone-700 whitespace-pre-wrap">{generatedStory}</p>
                         </div>
                     )}
@@ -217,9 +253,17 @@ export default function AIToolsPage() {
                             </div>
                             <div className="space-y-2">
                                  <p className="text-sm font-medium text-center">Generated</p>
-                                 <div className="w-full aspect-square rounded-md border border-dashed flex items-center justify-center bg-slate-50">
+                                 <div className="w-full aspect-square rounded-md border border-dashed flex items-center justify-center bg-slate-50 relative">
                                       {isGeneratingImage ? <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" /> :
-                                        generatedImage ? <Image src={generatedImage} alt="Generated product" width={300} height={300} className="rounded-md mx-auto aspect-square object-cover" /> :
+                                        generatedImage ? (
+                                            <>
+                                                <Image src={generatedImage} alt="Generated product" width={300} height={300} className="rounded-md mx-auto aspect-square object-cover" />
+                                                <Button size="sm" className="absolute bottom-2 right-2" onClick={handleDownloadImage}>
+                                                    <Download className="mr-2 h-4 w-4" />
+                                                    Download
+                                                </Button>
+                                            </>
+                                        ) :
                                         <div className="text-center text-muted-foreground">
                                             <ImageIcon className="mx-auto h-8 w-8" />
                                             <p className="text-xs">New image will appear here</p>
@@ -243,3 +287,5 @@ export default function AIToolsPage() {
     </div>
   );
 }
+
+    
