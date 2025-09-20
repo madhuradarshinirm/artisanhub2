@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -20,6 +21,9 @@ import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
 
 export default function SignupPage() {
+  const [name, setName] = useState("");
+  const [storeName, setStoreName] = useState("");
+  const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -39,6 +43,8 @@ export default function SignupPage() {
     setIsLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      // Here you would typically save the additional user info (name, storeName, age) to your database (e.g., Firestore)
+      // associated with the new user's UID.
       toast({
         title: "Account Created",
         description: "You have been successfully signed up.",
@@ -67,6 +73,39 @@ export default function SignupPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignup} className="space-y-4">
+             <div className="space-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="storeName">Store's Name</Label>
+              <Input
+                id="storeName"
+                type="text"
+                placeholder="Enter your store's name"
+                value={storeName}
+                onChange={(e) => setStoreName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="age">Age</Label>
+              <Input
+                id="age"
+                type="number"
+                placeholder="Enter your age"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                required
+              />
+            </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
