@@ -45,11 +45,8 @@ export default function LandingPage() {
           <h1 className="text-xl font-bold">Artisan Hub</h1>
         </div>
         <nav className="flex items-center gap-4">
-          <Button variant="ghost" asChild>
-            <Link href="/login">Login</Link>
-          </Button>
           <Button asChild>
-            <Link href="/signup">Sign Up</Link>
+            <Link href="/login">Get Started</Link>
           </Button>
         </nav>
       </header>
