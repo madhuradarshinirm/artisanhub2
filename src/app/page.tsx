@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Logo } from "@/components/logo";
@@ -54,7 +55,7 @@ export default function LandingPage() {
       </header>
 
       <section className="text-center py-20 px-4">
-        <h2 className="text-5xl font-bold mb-4">Empowering Artisans, One Creation at a Time</h2>
+        <h2 className="text-5xl font-bold mb-4">Welcome to Artisan Hub</h2>
         <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
           Your craft is unique. Your online store should be too. Artisan Hub provides AI-powered tools to help you build a beautiful brand, connect with customers, and grow your business.
         </p>
