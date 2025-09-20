@@ -18,14 +18,15 @@ export default function SignupPage() {
   const [storeName, setStoreName] = useState("");
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
   const { toast } = useToast();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Using a dummy password for Firebase auth since the user wants a passwordless UI
+    const dummyPassword = "default-password-for-all-users"; 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, dummyPassword);
       // You might want to save the additional user info (name, storeName, age) to Firestore here.
       router.push("/dashboard");
     } catch (error: any) {
@@ -90,17 +91,6 @@ export default function SignupPage() {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Create a password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
