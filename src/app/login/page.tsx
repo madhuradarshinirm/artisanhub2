@@ -27,7 +27,7 @@ export default function LoginPage() {
     } catch (error: any) {
       toast({
         title: "Login Failed",
-        description: error.message,
+        description: "Since we've removed passwords for new users, this form is for users with existing passwords. Please contact support if you need assistance.",
         variant: "destructive",
       });
     }
